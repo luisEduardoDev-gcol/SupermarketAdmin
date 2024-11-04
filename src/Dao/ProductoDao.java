@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductoDao {
+public class ProductoDAO {
     private DataBaseConnector dbc = new DataBaseConnector();
     
     public void agregarProductoPerecedero(ProductoPerecedero producto){
@@ -76,11 +76,15 @@ public class ProductoDao {
                     int id_proveedor = rs.getInt("id_proveedor");
                     String tiempoAlmacen = rs.getString("tiempo_almacen");
                     
+                    Producto producto;
                     if(caducidad.equals("")){
-                        productos.add(new ProductoNoPerecedero(codigo,nombre,precio,stock,tiempoAlmacen,id_proveedor));
+                        producto = new ProductoNoPerecedero(codigo,nombre,precio,stock,tiempoAlmacen,id_proveedor);
+                        
                     }else{
-                        productos.add(new ProductoPerecedero(codigo,nombre,precio,stock,caducidad,id_proveedor));
+                        producto = new ProductoPerecedero(codigo,nombre,precio,stock,caducidad,id_proveedor);
                     }
+                    producto.calcularPrecio();
+                    productos.add(producto);
                 }
         }catch(SQLException e){
             System.out.println("FALLO EN getProductos" + e.getMessage());
@@ -149,11 +153,42 @@ public class ProductoDao {
             } else {
                 producto = new ProductoPerecedero(codigo, nombre, precio, stock, caducidad, id_proveedor);
             }
-
+            producto.calcularPrecio();
         }catch(SQLException e){
             System.out.println("FALLO EN buscarProductoCodigo " + e.getMessage());
         }
         return producto;
     }
+    
+    public Producto buscarProductoNombre(String name){
+        String sql = "SELECT * FROM Productos WHERE nombre = ?";
+        Producto producto = null;
+        try(Connection con = dbc.connect();
+            PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                int codigo = rs.getInt("codigo_producto");
+                String nombre = rs.getString("nombre");
+                int precio = rs.getInt("precio");
+                int stock = rs.getInt("stock");
+                String caducidad = rs.getString("caducidad");
+                int id_proveedor = rs.getInt("id_proveedor");
+                String tiempoAlmacen = rs.getString("tiempo_almacen");
+
+                if (caducidad.equals("")) {
+                    producto = new ProductoNoPerecedero(codigo, nombre, precio, stock, tiempoAlmacen, id_proveedor);
+                } else {
+                    producto = new ProductoPerecedero(codigo, nombre, precio, stock, caducidad, id_proveedor);
+                }
+                producto.calcularPrecio();
+            }    
+        }catch(SQLException e){
+            System.out.println("FALLO EN getProductoByName" + e.getMessage());
+        }
+        return producto;
+    }
   
+    
 }

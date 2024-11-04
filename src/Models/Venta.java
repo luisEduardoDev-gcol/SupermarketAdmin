@@ -1,36 +1,24 @@
 package Models;
 
-import Models.Empleados.Empleado;
-import Models.Productos.Producto;
+import Models.Empleados.Cajero;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Venta {
-    //Arreglar en caso de ser necesario
-    //version en prueba
     private int idVenta;
+    private String fecha;
     private Cliente cliente;
-    private ArrayList<Producto> productos;
     private double total;
-    private Empleado empleado;
-
-    public Venta(int idVenta, Cliente cliente, Empleado empleado, double total) {
-        this.idVenta = idVenta;
+    private Cajero cajero;
+    private ArrayList<DetalleVenta> detallesVenta;
+    
+    public Venta(Cliente cliente, Cajero cajero, double total, ArrayList<DetalleVenta> detallesVenta) {
+        this.idVenta = -1;
+        this.fecha = LocalDate.now().toString();
         this.cliente = cliente;
-        this.empleado = empleado;
         this.total = total;
-        this.productos = new ArrayList<>();
-    }
-
-    public void agregarProducto(Producto producto) {
-        productos.add(producto);
-    }
-
-    public Cliente getCliente() {
-        return this.cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+        this.cajero = cajero;
+        this.detallesVenta = detallesVenta;
     }
 
     public int getIdVenta() {
@@ -41,12 +29,12 @@ public class Venta {
         this.idVenta = idVenta;
     }
 
-    public ArrayList<Producto> getProductos() {
-        return productos;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setProductos(ArrayList<Producto> productos) {
-        this.productos = productos;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public double getTotal() {
@@ -57,11 +45,31 @@ public class Venta {
         this.total = total;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Cajero getCajero() {
+        return cajero;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setCajero(Cajero cajero) {
+        this.cajero = cajero;
     }
+
+    public ArrayList<DetalleVenta> getDetallesVenta() {
+        return detallesVenta;
+    }
+
+    public void setDetallesVenta(ArrayList<DetalleVenta> detallesVenta) {
+        this.detallesVenta = detallesVenta;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    
+
+   
 }

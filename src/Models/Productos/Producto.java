@@ -17,19 +17,21 @@ public abstract class Producto {
     private double precio;
     private int stock;
     private int id_proveedor;
+    private double descuento;
 
     public Producto(int codigoProducto, String nombreProducto, double precio, int stock, int id_proveedor) {
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
-        this.precio = precio;
         this.stock = stock;
         this.id_proveedor = id_proveedor;
+        this.precio = precio;
+        this.descuento = 0;
     }
 
 
     //
 
-    public abstract double calcularPrecio();
+    public abstract void calcularPrecio();
 
     public abstract void mostrarInformacion();
     
@@ -49,7 +51,7 @@ public abstract class Producto {
         return this.nombreProducto;
     }
     
-    public void setPrecio(int precio){
+    public void setPrecio(double precio){
         this.precio = precio;
     }
     
@@ -73,4 +75,15 @@ public abstract class Producto {
         this.id_proveedor = id_proveedor;
     }
 
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
+
+
+    
 }

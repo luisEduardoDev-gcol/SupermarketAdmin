@@ -1,6 +1,6 @@
 package Services;
 
-import Dao.ProductoDao;
+import Dao.ProductoDAO;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
 import Models.Productos.ProductoPerecedero;
@@ -16,11 +16,12 @@ public class ProductoService {
 //    * (cantidad comprada de ese producto) y este retornado, a su ves agregado al arrayList de
 //    * productos de la venta, la venta entrara en el historial del cliente(ArryList de ventas).
     * */
-    private ProductoDao pd;
+    private ProductoDAO pd;
     
     public ProductoService() {
-        this.pd = new ProductoDao();
+        this.pd = new ProductoDAO();
     }
+    
 
     //metodo registrar(validar no mismo codigo)
     public void agregarProducto(Producto producto) throws RuntimeException{
@@ -50,24 +51,14 @@ public class ProductoService {
     }
 
     //buscar producto nombre
-    /*public Producto buscarProductoNombre(String nombre) {
-        
-    }*/
+    public Producto buscarProductoNombre(String nombre) {
+        return pd.buscarProductoNombre(nombre);
+    }
 
     //buscar producto codigo
     public Producto buscarProductoCodigo(int codProducto) {
         return pd.buscarProductoCodigo(codProducto);
     }
-
-    //buscar producto precio
-    /*public Producto buscarProductoPrecio(int precio) {
-        
-    }*/
-
-    //buscar producto stock
-    /*public Producto buscarProductoStock(int stock) {
-        
-    }*/
     
     public ArrayList<Producto> getProductos(int criterio){
         String buffer = criterio == 0? "codigo_producto" : criterio == 1? "nombre": criterio == 2? "precio":"stock";

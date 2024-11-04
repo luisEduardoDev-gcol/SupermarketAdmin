@@ -34,7 +34,7 @@ public class ClienteController {
     public Cliente buscarClientePorId(int idCliente){
         return clienteService.buscarClientePorId(idCliente);
     }
-    
+     
     public ArrayList<Cliente> getClientes() {
         return clienteService.getClientes();
     }
