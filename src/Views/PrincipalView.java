@@ -130,7 +130,7 @@ public class PrincipalView extends javax.swing.JFrame {
                     vg.setVisible(true);
                     this.dispose();
                 } else if (empleado instanceof Cajero) {
-                    ViewCajero vc = new ViewCajero(empleado, this.pc, this.ec, this.cc, this.pvC);
+                    ViewCajero vc = new ViewCajero((Cajero)empleado, this.pc, this.ec, this.cc, this.pvC);
                     vc.setVisible(true);
                     this.dispose();
                 } else {

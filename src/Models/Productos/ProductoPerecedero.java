@@ -5,6 +5,9 @@
 package Models.Productos;
 
 import Models.Proveedor;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -20,8 +23,19 @@ public class ProductoPerecedero extends Producto{
     }
 
     @Override
-    public double calcularPrecio() {
-        return 2;//valor temporal
+    public void calcularPrecio() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate fecha = LocalDate.parse(fechaCaducidad, formatter);
+        LocalDate hoy = LocalDate.now();
+        
+        if(ChronoUnit.DAYS.between(hoy, fecha) < 3){
+            this.setDescuento(75);
+            this.setPrecio(this.getPrecio()*0.25);
+        }else if(ChronoUnit.DAYS.between(hoy, fecha) < 5){
+            this.setDescuento(50);
+            this.setPrecio(this.getPrecio()*0.50);
+        }
+        
     }
 
     @Override

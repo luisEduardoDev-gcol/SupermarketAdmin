@@ -1,21 +1,24 @@
 package Services;
 
+import Dao.VentaDAO;
+import Models.DetalleVenta;
 import Models.Venta;
 
 import java.util.ArrayList;
 
 public class VentaService {
-    ArrayList<Venta> ventas;
+    //ArrayList<Venta> ventas;
+    VentaDAO ventaDAO;
 
-    public VentaService(ArrayList<Venta> ventas) {
-        this.ventas = ventas;
+    public VentaService() {
+        //this.ventas = ventas;
+        this.ventaDAO = new VentaDAO();
     }
-
-
-    //registrar venta(excepcion stock insuficiente)
 
     //version de prueba
-    public void agregarVenta(Venta venta) {
-        this.ventas.add(venta);
+    public void agregarVenta(Venta venta, ArrayList<DetalleVenta> detalles) {
+        ventaDAO.agregarVenta(venta, detalles);
     }
+    
+    
 }
