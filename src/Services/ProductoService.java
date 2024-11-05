@@ -1,6 +1,6 @@
 package Services;
 
-import Dao.ProductoDAO;
+import Dao.ProductoDao;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
 import Models.Productos.ProductoPerecedero;
@@ -16,10 +16,10 @@ public class ProductoService {
 //    * (cantidad comprada de ese producto) y este retornado, a su ves agregado al arrayList de
 //    * productos de la venta, la venta entrara en el historial del cliente(ArryList de ventas).
     * */
-    private ProductoDAO pd;
+    private ProductoDao pd;
     
     public ProductoService() {
-        this.pd = new ProductoDAO();
+        this.pd = new ProductoDao();
     }
     
 

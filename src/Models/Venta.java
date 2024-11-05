@@ -68,8 +68,4 @@ public class Venta {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
-    
-
-   
 }

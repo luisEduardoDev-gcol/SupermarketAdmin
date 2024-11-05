@@ -5,6 +5,8 @@
 package Controllers;
 
 import Models.Cliente;
+import Models.DetalleVenta;
+import Models.Venta;
 import Services.ClienteService;
 import java.util.ArrayList;
 
@@ -37,5 +39,14 @@ public class ClienteController {
      
     public ArrayList<Cliente> getClientes() {
         return clienteService.getClientes();
+    }
+    public ArrayList<Venta> getVentas(int id_cliente) {
+        return clienteService.getVentas(id_cliente);
+    }
+    public ArrayList<DetalleVenta> getDetallesVenta(int idVenta) {
+        return clienteService.getDetallesVenta(idVenta);
+    }
+    public Venta getVentaPorId(int id_venta) {
+        return clienteService.getVentaPorId(id_venta);
     }
 }

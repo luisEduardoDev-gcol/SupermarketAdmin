@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductoDAO {
+public class ProductoDao {
     private DataBaseConnector dbc = new DataBaseConnector();
     
     public void agregarProductoPerecedero(ProductoPerecedero producto){
