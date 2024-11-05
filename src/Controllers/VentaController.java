@@ -23,4 +23,8 @@ public class VentaController {
     public void agregarVenta(Venta venta, ArrayList<DetalleVenta> detalles) {
         vs.agregarVenta(venta, detalles);
     }
+
+    public ArrayList<Venta> getVentas() {
+        return this.vs.getVentas();
+    }
 }

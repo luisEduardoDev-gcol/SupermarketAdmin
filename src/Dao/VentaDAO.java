@@ -4,7 +4,15 @@
  */
 package Dao;
 
+import Models.Cliente;
 import Models.DetalleVenta;
+import Models.Empleados.Cajero;
+import Models.Empleados.Empleado;
+import Models.Empleados.Gerente;
+import Models.Empleados.Reponedor;
+import Models.Productos.Producto;
+import Models.Productos.ProductoNoPerecedero;
+import Models.Productos.ProductoPerecedero;
 import Models.Venta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +26,11 @@ import java.sql.ResultSet;
  */
 public class VentaDAO {
     private DataBaseConnector dbc = new DataBaseConnector();
-    
+    private EmpleadoDAO empDAO = new EmpleadoDAO();
+    private ClienteDAO cliDAO = new ClienteDAO();
+    private ProductoDAO prodDAO = new ProductoDAO();
+
+
     public void agregarVenta(Venta venta, ArrayList<DetalleVenta> detalles){
         String sql1 = "INSERT INTO Ventas (fecha,total,id_cliente,id_cajero)"
                 + " VALUES (?,?,?,?)"
@@ -81,8 +93,96 @@ public class VentaDAO {
         }
     
     }
-    
-   
-    
-    
+
+    public ArrayList<Venta> getVentas(){
+        ArrayList<Venta> ventas = new ArrayList<>();
+        ArrayList<Empleado> empleados = this.empDAO.getEmpleados();
+        ArrayList<Cliente> clientes = this.cliDAO.getClientes();
+        ArrayList<Producto> productos = this.prodDAO.getProductos("codigo_producto");
+
+        String sql = "SELECT * FROM ventas";
+
+        try (Connection con = dbc.connect();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int idVenta = rs.getInt("id_venta");
+                String fecha = rs.getString("fecha");
+                double total = rs.getDouble("total");
+                int idCliente = rs.getInt("id_cliente");
+                int idCajero = rs.getInt("id_cajero");
+
+                // Buscar cliente por idCliente
+                Cliente cliente = clientes.stream()
+                        .filter(c -> c.getIdCliente() == idCliente)
+                        .findFirst()
+                        .orElse(null);
+
+                // Buscar cajero por idCajero
+                Cajero cajero = (Cajero) empleados.stream()
+                        .filter(e -> e.getIdEmpleado() == idCajero)
+                        .findFirst()
+                        .orElse(null);
+
+                // Obtener detalles de la venta
+                ArrayList<DetalleVenta> detallesVenta = getDetallesVenta(idVenta, productos);
+
+                // Crear y agregar la venta a la lista
+                Venta venta = new Venta(cliente, cajero, total, detallesVenta);
+                venta.setIdVenta(idVenta);
+                venta.setFecha(fecha);
+                ventas.add(venta);
+            }
+        } catch (SQLException e) {
+            System.out.println("FALLO AL OBTENER VENTAS: " + e.getMessage());
+        }
+
+        return ventas;
+    }
+
+    // Método para obtener los detalles de una venta específica
+    private ArrayList<DetalleVenta> getDetallesVenta(int idVenta, ArrayList<Producto> productos) {
+        ArrayList<DetalleVenta> detalles = new ArrayList<>();
+        String sqlDetalleVenta = "SELECT * FROM DetallesVentas WHERE id_venta = ?";
+
+        try (Connection con = dbc.connect();
+             PreparedStatement pstmt = con.prepareStatement(sqlDetalleVenta)) {
+            pstmt.setInt(1, idVenta);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int codigoProducto = rs.getInt("codigo_producto");
+                int cantidad = rs.getInt("cantidad");
+
+                // Buscar el producto correspondiente al codigoProducto
+                Producto producto = productos.stream()
+                        .filter(p -> p.getCodigoProducto() == codigoProducto)
+                        .findFirst()
+                        .orElse(null);
+
+                if (producto != null) {
+                    DetalleVenta detalle;
+                    if (producto instanceof ProductoNoPerecedero) {
+                        detalle = new DetalleVenta((ProductoNoPerecedero) producto, cantidad);
+                    } else if (producto instanceof ProductoPerecedero) {
+                        detalle = new DetalleVenta((ProductoPerecedero) producto, cantidad);
+                    } else {
+                        System.out.println("Producto con código " + codigoProducto + " no es perecedero ni no perecedero.");
+                        continue;
+                    }
+
+                    detalle.setIdVenta(idVenta);
+                    detalles.add(detalle);
+                } else {
+                    System.out.println("Producto con código " + codigoProducto + " no encontrado en la lista de productos.");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("FALLO AL OBTENER DETALLES DE VENTA: " + e.getMessage());
+        }
+
+        return detalles;
+    }
+
 }

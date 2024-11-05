@@ -13,17 +13,15 @@ import Models.Productos.Producto;
 public class DetalleVenta {
     int idDetalle;
     int idVenta;
-    Cliente cliente;
     Producto producto;
     int cantidad;
     double precio;
 
     private static int cont = 0;
     
-    public DetalleVenta(Cliente cliente, Producto producto, int cantidad) {
+    public DetalleVenta(Producto producto, int cantidad) {
         this.idDetalle = cont;
         this.idVenta = -1;
-        this.cliente = cliente;
         this.producto = producto;
         this.cantidad = cantidad;
         this.precio = producto.getPrecio() * cantidad;
@@ -45,14 +43,6 @@ public class DetalleVenta {
 
     public void setIdVenta(int idVenta) {
         this.idVenta = idVenta;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public Producto getProducto() {
@@ -79,8 +69,4 @@ public class DetalleVenta {
         this.precio = precio;
     }
 
-    
-    
-    
-    
 }
