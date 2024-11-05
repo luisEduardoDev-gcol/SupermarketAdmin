@@ -160,6 +160,7 @@ public class GestionClientesView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         idVentasCombox = new javax.swing.JComboBox<>();
         verDetallesVentaBtn = new javax.swing.JButton();
+        clienteHistorial = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -324,6 +325,9 @@ public class GestionClientesView extends javax.swing.JFrame {
             }
         });
 
+        clienteHistorial.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        clienteHistorial.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -346,13 +350,17 @@ public class GestionClientesView extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(clienteComprasLabel)
-                .addGap(102, 102, 102))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clienteHistorial)
+                .addGap(55, 55, 55))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(clienteComprasLabel)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(clienteComprasLabel)
+                        .addComponent(clienteHistorial))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)))
@@ -491,7 +499,7 @@ public class GestionClientesView extends javax.swing.JFrame {
             int id_cliente = Integer.parseInt(idComboBox.getSelectedItem() + "");
             Cliente cliente = cc.buscarClientePorId(id_cliente);
             
-            clienteComprasLabel.setText(clienteComprasLabel.getText() + ": " + cliente.getNombreCompleto());
+            clienteHistorial.setText(": " + cliente.getNombreCompleto());
             llenarTablaCompras(id_cliente);
             alistarVentasIdsCombobox(id_cliente);
         } catch (NumberFormatException e) {
@@ -513,6 +521,7 @@ public class GestionClientesView extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel clienteComprasLabel;
+    private javax.swing.JLabel clienteHistorial;
     private javax.swing.JTextField emailField;
     private javax.swing.JComboBox<String> idComboBox;
     private javax.swing.JComboBox<String> idVentasCombox;
