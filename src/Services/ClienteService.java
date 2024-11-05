@@ -8,6 +8,8 @@ import Dao.ClienteDAO;
 import Helpers.HelperFunctions;
 import java.util.ArrayList;
 import Models.Cliente;
+import Models.DetalleVenta;
+import Models.Venta;
 
 /**
  *
@@ -67,5 +69,16 @@ public class ClienteService {
         return cliente.getEmail().trim().isEmpty()
                 || cliente.getNombreCompleto().trim().isEmpty() || cliente.getTelefono().trim().isEmpty();
 
+    }
+    
+    // Obtener compras que ha hecho ese cliente
+    public ArrayList<Venta> getVentas(int id_cliente) {
+        return clienteDAO.getVentas(id_cliente);
+    }
+    public ArrayList<DetalleVenta> getDetallesVenta(int idVenta) {
+        return clienteDAO.getDetallesVenta(idVenta);
+    }
+    public Venta getVentaPorId(int id_venta) {
+        return clienteDAO.getVentaPorId(id_venta);
     }
 }
