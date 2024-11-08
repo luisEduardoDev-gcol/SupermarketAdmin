@@ -180,7 +180,7 @@ public class ClienteDAO {
                
                 Producto producto = new ProductoDAO().buscarProductoCodigo(codProducto);
 
-                DetalleVenta detalle = new DetalleVenta(null, producto, cantidad);
+                DetalleVenta detalle = new DetalleVenta( producto, cantidad);
                 detalle.setIdDetalle(idDetalleVenta);
 
                 detallesVenta.add(detalle);

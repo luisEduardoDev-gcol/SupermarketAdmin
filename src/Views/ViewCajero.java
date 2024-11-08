@@ -413,8 +413,7 @@ public class ViewCajero extends javax.swing.JFrame {
             int cantidad = Integer.parseInt(CCantidad.getSelectedItem() + "");
             
             Producto producto = pc.buscarProductoNombre(productoNombre);
-            Cliente cliente = cc.buscarClientePorId(idCliente);
-            cajero.getCarrito().add(new DetalleVenta(cliente, producto, cantidad));
+            cajero.getCarrito().add(new DetalleVenta(producto, cantidad));
             
             listarCantidad(producto);
             listarTabla();

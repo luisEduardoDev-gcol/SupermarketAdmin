@@ -20,5 +20,7 @@ public class VentaService {
         ventaDAO.agregarVenta(venta, detalles);
     }
     
-    
+    public ArrayList<Venta> getVentas(){
+        return this.ventaDAO.getVentas();
+    }
 }

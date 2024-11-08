@@ -195,7 +195,7 @@ public class GestionProductosView extends javax.swing.JFrame {
 
         regresar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         regresar.setText("Regresar");
-        regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regresarActionPerformed(evt);
@@ -206,11 +206,16 @@ public class GestionProductosView extends javax.swing.JFrame {
         jLabel7.setText("ORDENAR POR: ");
 
         comboOrden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboOrden.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboOrden.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        comboOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboOrdenActionPerformed(evt);
+            }
+        });
 
         btnOrdenar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnOrdenar.setText("Ordenar");
-        btnOrdenar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOrdenar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrdenarActionPerformed(evt);
@@ -256,7 +261,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         jLabel1.setText("TipoProducto");
 
         CTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         CTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CTipoActionPerformed(evt);
@@ -269,17 +274,17 @@ public class GestionProductosView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Nombre");
 
-        nombreTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        nombreTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Precio");
 
-        precioTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        precioTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Stock");
 
-        stockTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        stockTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         stockTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stockTxtActionPerformed(evt);
@@ -289,7 +294,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         atributo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         atributo.setText("FechaCaducidad");
 
-        fechaTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        fechaTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         fechaTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fechaTxtActionPerformed(evt);
@@ -298,7 +303,7 @@ public class GestionProductosView extends javax.swing.JFrame {
 
         btnBuscar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnBuscar.setText("Buscar");
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -307,7 +312,7 @@ public class GestionProductosView extends javax.swing.JFrame {
 
         btnSuministrar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnSuministrar.setText("Suministrar");
-        btnSuministrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSuministrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSuministrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuministrarActionPerformed(evt);
@@ -316,7 +321,7 @@ public class GestionProductosView extends javax.swing.JFrame {
 
         btnEliminar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnEliminar.setText("Eliminar");
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -326,7 +331,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setToolTipText("");
-        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -337,10 +342,10 @@ public class GestionProductosView extends javax.swing.JFrame {
         jLabel6.setText("PROVEEDOR");
 
         CProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         comboCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButton1.setText("...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -360,7 +365,7 @@ public class GestionProductosView extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -584,6 +589,10 @@ public class GestionProductosView extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         date.showPopup();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void comboOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboOrdenActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
