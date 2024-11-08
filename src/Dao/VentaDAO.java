@@ -8,8 +8,6 @@ import Models.Cliente;
 import Models.DetalleVenta;
 import Models.Empleados.Cajero;
 import Models.Empleados.Empleado;
-import Models.Empleados.Gerente;
-import Models.Empleados.Reponedor;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
 import Models.Productos.ProductoPerecedero;
