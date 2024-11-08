@@ -45,7 +45,8 @@
                   <Component id="txtNombreUsuario" min="-2" pref="110" max="-2" attributes="0"/>
                   <EmptySpace pref="61" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnEmpleados" min="-2" pref="184" max="-2" attributes="0"/>
+                      <Component id="btnEmpleados1" min="-2" pref="184" max="-2" attributes="0"/>
+                      <Component id="btnReporteVentas" min="-2" pref="184" max="-2" attributes="0"/>
                       <Component id="btnClientes" min="-2" pref="184" max="-2" attributes="0"/>
                       <Component id="btnProveedores" min="-2" pref="184" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -74,15 +75,17 @@
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                   <Component id="btnProductos" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnProveedores" min="-2" pref="41" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnClientes" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="btnEmpleados" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace pref="129" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnEmpleados1" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnReporteVentas" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace pref="122" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,15 +113,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientesActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnEmpleados">
+        <Component class="javax.swing.JButton" name="btnReporteVentas">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Dialog" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="GESTION EMPLEADOS"/>
+            <Property name="text" type="java.lang.String" value="REPORTE DE VENTAS"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmpleadosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReporteVentasActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProveedores">
@@ -146,6 +149,17 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombreUsuario">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnEmpleados1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="GESTION EMPLEADOS"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmpleados1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
