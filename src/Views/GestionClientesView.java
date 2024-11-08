@@ -8,11 +8,15 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
+import Exceptions.CamposVaciosException;
+import Exceptions.EmailInvalidoException;
 import Models.Cliente;
 import Models.Empleados.Empleado;
 import Models.Venta;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -360,9 +364,8 @@ public class GestionClientesView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(clienteComprasLabel)
-                        .addComponent(clienteHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clienteComprasLabel)
+                    .addComponent(clienteHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)))
@@ -431,7 +434,7 @@ public class GestionClientesView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "¡CLIENTE AGREGADO EXITOSAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
+        }  catch (EmailInvalidoException | CamposVaciosException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -450,9 +453,7 @@ public class GestionClientesView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "¡CLIENTE ELIMINADO CORRECTAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        } 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -465,9 +466,7 @@ public class GestionClientesView extends javax.swing.JFrame {
             emailField.setText(cliente.getEmail());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        } 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -485,7 +484,7 @@ public class GestionClientesView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "!CLIENTE ACTUALIZADO EXITOSAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
+        } catch (CamposVaciosException | EmailInvalidoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -506,9 +505,7 @@ public class GestionClientesView extends javax.swing.JFrame {
             alistarVentasIdsCombobox(id_cliente);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        } 
     }//GEN-LAST:event_mostrarVentasBtnActionPerformed
 
     private void verDetallesVentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verDetallesVentaBtnActionPerformed

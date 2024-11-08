@@ -4,6 +4,8 @@
  */
 package Controllers;
 
+import Exceptions.CamposVaciosException;
+import Exceptions.EmailInvalidoException;
 import Models.Proveedor;
 import Models.Productos.Producto;
 
@@ -21,15 +23,15 @@ public class ProveedorController {
         proveedorService = new ProveedorService();
     }
     
-    public void agregarProveedor(Proveedor proveedor) {
+    public void agregarProveedor(Proveedor proveedor) throws EmailInvalidoException, CamposVaciosException {
         proveedorService.agregarProveedor(proveedor);
     }
 
-    public void eliminarProveedor(int idProveedor) throws RuntimeException{
+    public void eliminarProveedor(int idProveedor){
         proveedorService.eliminarProveedor(idProveedor);
     }
 
-    public void editarProveedor(Proveedor proveedor) throws RuntimeException {
+    public void editarProveedor(Proveedor proveedor) throws EmailInvalidoException, CamposVaciosException  {
         proveedorService.editarProveedor(proveedor);
     }
     
