@@ -178,9 +178,9 @@ public class ClienteDAO {
                 int codProducto = rs.getInt("codigo_producto");
                 int cantidad = rs.getInt("cantidad");
                
-                Producto producto = new ProductoDao().buscarProductoCodigo(codProducto);
+                Producto producto = new ProductoDAO().buscarProductoCodigo(codProducto);
 
-                DetalleVenta detalle = new DetalleVenta(null, producto, cantidad);
+                DetalleVenta detalle = new DetalleVenta( producto, cantidad);
                 detalle.setIdDetalle(idDetalleVenta);
 
                 detallesVenta.add(detalle);
