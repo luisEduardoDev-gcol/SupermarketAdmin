@@ -60,9 +60,9 @@ public class ProductoService {
         return pd.buscarProductoCodigo(codProducto);
     }
     
-    public ArrayList<Producto> getProductos(int criterio){
+    public ArrayList<Producto> getProductos(int criterio, boolean esStockBajo){
         String buffer = criterio == 0? "codigo_producto" : criterio == 1? "nombre": criterio == 2? "precio":"stock";
-        return pd.getProductos(buffer);
+        return pd.getProductos(buffer, esStockBajo);
     }
 
 }

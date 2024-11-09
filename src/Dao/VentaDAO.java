@@ -104,7 +104,7 @@ public class VentaDAO {
         ArrayList<Venta> ventas = new ArrayList<>();
         ArrayList<Empleado> empleados = this.empDAO.getEmpleados();
         ArrayList<Cliente> clientes = this.cliDAO.getClientes();
-        ArrayList<Producto> productos = this.prodDAO.getProductos("codigo_producto");
+        ArrayList<Producto> productos = this.prodDAO.getProductos("codigo_producto", false);
 
         String sql = "SELECT * FROM ventas";
 
