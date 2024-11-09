@@ -24,7 +24,17 @@ import java.util.ArrayList;
 public class ClienteDAO {
 
     private DataBaseConnector dbc = new DataBaseConnector();
-
+    private static ClienteDAO instancia;
+    
+    private ClienteDAO() {
+    }
+    
+    public static ClienteDAO getInstancia(){
+        instancia = instancia == null? new ClienteDAO():instancia;
+        return instancia;
+    }
+    
+    
     public void agregarCliente(Cliente cliente) throws EmailInvalidoException {
         String sql = "INSERT INTO Clientes (nombre_completo,telefono,email)"
                 + " VALUES (?,?,?)";
@@ -179,7 +189,7 @@ public class ClienteDAO {
                 int codProducto = rs.getInt("codigo_producto");
                 int cantidad = rs.getInt("cantidad");
                
-                Producto producto = new ProductoDAO().buscarProductoCodigo(codProducto);
+                Producto producto = ProductoDAO.getInstancia().buscarProductoCodigo(codProducto);
 
                 DetalleVenta detalle = new DetalleVenta( producto, cantidad);
                 detalle.setIdDetalle(idDetalleVenta);

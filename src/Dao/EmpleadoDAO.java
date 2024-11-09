@@ -16,7 +16,17 @@ import java.util.ArrayList;
 public class EmpleadoDAO {
 
     private DataBaseConnector dbc = new DataBaseConnector();
-
+    private static EmpleadoDAO instancia;
+    
+    private EmpleadoDAO() {
+    }
+    
+    public static EmpleadoDAO getInstancia(){
+        instancia = instancia == null? new EmpleadoDAO():instancia;
+        return instancia;
+    }
+    
+    
     public void agregarEmpleado(Empleado empleado) {
         String sql = "INSERT INTO Empleados (nombre_completo, correo, salario, tipo_empleado, turno, bonificacion)" + " VALUES (?,?,?,?,?,?)";
         try(Connection con = dbc.connect();

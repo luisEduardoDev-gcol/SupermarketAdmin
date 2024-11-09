@@ -19,7 +19,7 @@ public class ProductoService {
     private ProductoDAO pd;
     
     public ProductoService() {
-        this.pd = new ProductoDAO();
+        this.pd = ProductoDAO.getInstancia();
     }
     
 

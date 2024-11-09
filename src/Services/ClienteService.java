@@ -22,7 +22,7 @@ public class ClienteService {
     private ClienteDAO clienteDAO;
 
     public ClienteService() {
-        clienteDAO = new ClienteDAO();
+        clienteDAO = ClienteDAO.getInstancia();
     }
 
     public ArrayList<Cliente> getClientes() {

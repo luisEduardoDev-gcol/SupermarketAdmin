@@ -19,6 +19,15 @@ import java.util.ArrayList;
 
 public class ProductoDAO {
     private DataBaseConnector dbc = new DataBaseConnector();
+    private static ProductoDAO instancia;
+    
+    private ProductoDAO() {
+    }
+    
+    public static ProductoDAO getInstancia(){
+        instancia = instancia == null? new ProductoDAO():instancia;
+        return instancia;
+    }
     
     public void agregarProductoPerecedero(ProductoPerecedero producto){
         String sql = "INSERT INTO Productos (nombre,precio,stock,tipo,caducidad,tiempo_almacen,id_proveedor)"

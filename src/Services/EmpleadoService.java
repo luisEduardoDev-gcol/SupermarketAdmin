@@ -17,7 +17,7 @@ public class EmpleadoService {
 
     public EmpleadoService() {
         //ArrayList que sera un contenedor polimorfico para poder agregar los 3 tipos de empleados del sistema
-        this.empleadoDAO = new EmpleadoDAO();
+        this.empleadoDAO = EmpleadoDAO.getInstancia();
         this.empleados = this.empleadoDAO.getEmpleados();
     }
 
