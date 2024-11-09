@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ProductoService {
     /*README-------------------------------------------------------------
-    * 1. Cuando se realioce una venta, se le resta el stock seleccionado
+    * 1. Cuando se realice una venta, se le resta el stock seleccionado
     * por el cliente al stock del producto en el arrayList.
     *
     * 2. Se debe retornar el producto con el numero de stock seleccionado por el cliente,
@@ -24,7 +24,7 @@ public class ProductoService {
     
 
     //metodo registrar(validar no mismo codigo)
-    public void agregarProducto(Producto producto) throws RuntimeException{
+    public void agregarProducto(Producto producto) {
         //El codigo debera autogenerarse
         /*
         for(Producto pro : productosDisponibles){
@@ -33,7 +33,7 @@ public class ProductoService {
             }
         }*/
         
-        if(producto instanceof ProductoPerecedero){
+        if (producto instanceof ProductoPerecedero){
             pd.agregarProductoPerecedero((ProductoPerecedero)producto);
         }else{
             pd.agregarProductoNoPerecedero((ProductoNoPerecedero)producto);

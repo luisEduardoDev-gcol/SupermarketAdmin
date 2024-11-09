@@ -5,6 +5,8 @@
 package Services;
 
 import Dao.ClienteDAO;
+import Exceptions.CamposVaciosException;
+import Exceptions.EmailInvalidoException;
 import Helpers.HelperFunctions;
 import java.util.ArrayList;
 import Models.Cliente;
@@ -28,14 +30,14 @@ public class ClienteService {
     }
 
     // Agrega cliente default
-    public void agregarCliente(Cliente cliente) throws RuntimeException {
+    public void agregarCliente(Cliente cliente) throws EmailInvalidoException, CamposVaciosException {
         // Valida campos de cliente
         if (isVacioCampo(cliente)) {
-            throw new RuntimeException("FALTAN CAMPOS");
+            throw new CamposVaciosException("FALTAN CAMPOS");
         }
         
         if (!HelperFunctions.esEmailValido(cliente.getEmail())) {
-            throw new RuntimeException("El email debe ser de un formato válido");
+            throw new EmailInvalidoException("El email debe ser de un formato válido");
         }
 
         clienteDAO.agregarCliente(cliente);
@@ -47,14 +49,14 @@ public class ClienteService {
     }
 
     // Edita el cliente, segun la busqueda del id de este mismo
-    public void editarCliente(Cliente cliente) throws RuntimeException {
+    public void editarCliente(Cliente cliente) throws CamposVaciosException, EmailInvalidoException {
         // VALIDA LOS CAMPOS
         if (isVacioCampo(cliente)) {
-            throw new RuntimeException("FALTAN CAMPOS");
+            throw new CamposVaciosException("FALTAN CAMPOS");
         }
         
         if (!HelperFunctions.esEmailValido(cliente.getEmail())) {
-            throw new RuntimeException("El email debe ser de un formato válido");
+            throw new EmailInvalidoException("El email debe ser de un formato válido");
         }
 
         clienteDAO.editarCliente(cliente);

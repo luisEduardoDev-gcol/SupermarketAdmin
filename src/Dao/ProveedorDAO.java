@@ -4,6 +4,7 @@
  */
 package Dao;
 
+import Exceptions.EmailInvalidoException;
 import Models.Proveedor;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
@@ -33,7 +34,7 @@ public class ProveedorDAO {
     }
     
     
-    public void agregarProveedor(Proveedor proveedor) throws RuntimeException {
+    public void agregarProveedor(Proveedor proveedor) throws EmailInvalidoException {
         String sql = "INSERT INTO Proveedores (nombre_empresa,telefono_contacto,email)"
                 + " VALUES (?,?,?)";
         try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -44,7 +45,7 @@ public class ProveedorDAO {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("El email ya existe en otro proveedor");
+            throw new EmailInvalidoException("El email ya existe en otro proveedor");
         }
     }
 
@@ -81,7 +82,7 @@ public class ProveedorDAO {
         }
     }
 
-    public void editarProveedor(Proveedor proveedor) throws RuntimeException {
+    public void editarProveedor(Proveedor proveedor) throws EmailInvalidoException {
         String sql = "UPDATE Proveedores SET nombre_empresa = ?, telefono_contacto = ?, email = ? WHERE id_proveedor = ?";
 
         try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -93,7 +94,7 @@ public class ProveedorDAO {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Este email ya existe en otro proveedor");
+            throw new EmailInvalidoException("Este email ya existe en otro proveedor");
         }
     }
 

@@ -42,8 +42,7 @@ public class ViewGerente extends javax.swing.JFrame {
         this.setResizable(false);
         //estilarElementos();
 
-        txtNombreUsuario.setText(this.empleado.getNombreCompleto());
-        txtNombreUsuario.setEnabled(false);
+        lblNombreCompleto.setText(this.empleado.getNombreCompleto());
     }
     
     public void estilarElementos(){
@@ -78,8 +77,8 @@ public class ViewGerente extends javax.swing.JFrame {
         btnProveedores = new javax.swing.JButton();
         btnSesion = new javax.swing.JButton();
         lblUsuario = new javax.swing.JLabel();
-        txtNombreUsuario = new javax.swing.JTextField();
         btnEmpleados1 = new javax.swing.JButton();
+        lblNombreCompleto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,6 +131,8 @@ public class ViewGerente extends javax.swing.JFrame {
             }
         });
 
+        lblNombreCompleto.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,9 +140,9 @@ public class ViewGerente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(lblUsuario)
-                .addGap(18, 18, 18)
-                .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEmpleados1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReporteVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,7 +163,7 @@ public class ViewGerente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSesion)
                     .addComponent(lblUsuario)
-                    .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblNombreCompleto))
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(76, 76, 76)
@@ -243,7 +244,7 @@ public class ViewGerente extends javax.swing.JFrame {
     private javax.swing.JButton btnReporteVentas;
     private javax.swing.JButton btnSesion;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JLabel lblUsuario;
-    private javax.swing.JTextField txtNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }
