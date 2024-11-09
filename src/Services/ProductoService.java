@@ -25,17 +25,9 @@ public class ProductoService {
 
     //metodo registrar(validar no mismo codigo)
     public void agregarProducto(Producto producto) {
-        //El codigo debera autogenerarse
-        /*
-        for(Producto pro : productosDisponibles){
-            if(pro.getCodigoProducto() == producto.getCodigoProducto()) {
-               throw new RuntimeException("ESTE CODIGO YA EXISTE");
-            }
-        }*/
-        
         if (producto instanceof ProductoPerecedero){
             pd.agregarProductoPerecedero((ProductoPerecedero)producto);
-        }else{
+        }else if(producto instanceof ProductoNoPerecedero){
             pd.agregarProductoNoPerecedero((ProductoNoPerecedero)producto);
         }
     }

@@ -67,7 +67,7 @@ public class EmpleadoService {
         }
         return null;
     }
-
+    
     public ArrayList<Empleado> getEmpleados() {
         return this.empleadoDAO.getEmpleados();
     }
