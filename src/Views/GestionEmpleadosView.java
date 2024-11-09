@@ -8,6 +8,8 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
+import Exceptions.IdInvalidoException;
+import Exceptions.TipoEmpleadoInvalidoException;
 import Models.Empleados.Cajero;
 import Models.Empleados.Empleado;
 import Models.Empleados.Gerente;
@@ -15,6 +17,8 @@ import Models.Empleados.Gerente;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -375,7 +379,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             this.limpiarCampos();
             this.alistarBox();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO AGREGADO EXITOSAMENTE!");
-        } catch (RuntimeException e) {
+        } catch (TipoEmpleadoInvalidoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
@@ -421,7 +425,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch (RuntimeException e) {
+        }  catch (IdInvalidoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
@@ -443,7 +447,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             this.alistarTabla();
             this.limpiarCampos();
             this.alistarBox();
-        }  catch(RuntimeException e) {
+        } catch (TipoEmpleadoInvalidoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed

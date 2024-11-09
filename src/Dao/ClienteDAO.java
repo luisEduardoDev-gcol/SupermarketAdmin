@@ -4,6 +4,7 @@
  */
 package Dao;
 
+import Exceptions.EmailInvalidoException;
 import Models.Cliente;
 import Models.DetalleVenta;
 import Models.Empleados.Cajero;
@@ -24,7 +25,7 @@ public class ClienteDAO {
 
     private DataBaseConnector dbc = new DataBaseConnector();
 
-    public void agregarCliente(Cliente cliente) throws RuntimeException {
+    public void agregarCliente(Cliente cliente) throws EmailInvalidoException {
         String sql = "INSERT INTO Clientes (nombre_completo,telefono,email)"
                 + " VALUES (?,?,?)";
         try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -35,7 +36,7 @@ public class ClienteDAO {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("El email ya existe en otro cliente");
+            throw new EmailInvalidoException("El email ya existe en otro cliente");
         }
     }
 
@@ -72,7 +73,7 @@ public class ClienteDAO {
         }
     }
 
-    public void editarCliente(Cliente cliente) throws RuntimeException {
+    public void editarCliente(Cliente cliente) throws EmailInvalidoException {
         String sql = "UPDATE Clientes SET nombre_completo = ?, telefono = ?, email = ? WHERE id_cliente = ?";
 
         try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -84,7 +85,7 @@ public class ClienteDAO {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("El email ya existe en otro cliente");
+            throw new EmailInvalidoException("El email ya existe en otro cliente");
         }
     }
 

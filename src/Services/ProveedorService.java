@@ -5,6 +5,8 @@
 package Services;
 
 import Dao.ProveedorDAO;
+import Exceptions.CamposVaciosException;
+import Exceptions.EmailInvalidoException;
 import Helpers.HelperFunctions;
 import java.util.ArrayList;
 
@@ -27,14 +29,14 @@ public class ProveedorService {
         return proveedorDAO.getProveedores();
     }
 
-    public void agregarProveedor(Proveedor proveedor) throws RuntimeException{
+    public void agregarProveedor(Proveedor proveedor) throws EmailInvalidoException, CamposVaciosException{
         // Valida campos de proveedor
         if (isVacioCampo(proveedor)) {
-            throw new RuntimeException("FALTAN CAMPOS");
+            throw new CamposVaciosException("FALTAN CAMPOS");
         }
         
         if (!HelperFunctions.esEmailValido(proveedor.getEmail())) {
-            throw new RuntimeException("El email debe ser de un formato válido");
+            throw new EmailInvalidoException("El email debe ser de un formato válido");
         }
         proveedorDAO.agregarProveedor(proveedor);
     }
@@ -45,14 +47,14 @@ public class ProveedorService {
     }
 
     // Edita el proveedor, segun la busqueda del id de este mismo
-    public void editarProveedor(Proveedor proveedor) throws RuntimeException {
+    public void editarProveedor(Proveedor proveedor) throws EmailInvalidoException, CamposVaciosException {
         // VALIDA LOS CAMPOS
         if (isVacioCampo(proveedor)) {
-            throw new RuntimeException("FALTAN CAMPOS");
+            throw new CamposVaciosException("FALTAN CAMPOS");
         }
         
         if (!HelperFunctions.esEmailValido(proveedor.getEmail())) {
-            throw new RuntimeException("El email debe ser de un formato válido");
+            throw new EmailInvalidoException("El email debe ser de un formato válido");
         }
         
         proveedorDAO.editarProveedor(proveedor);

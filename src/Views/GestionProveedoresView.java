@@ -8,10 +8,14 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
+import Exceptions.CamposVaciosException;
+import Exceptions.EmailInvalidoException;
 import Models.Empleados.Empleado;
 import Models.Productos.Producto;
 import Models.Proveedor;
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -374,7 +378,7 @@ public class GestionProveedoresView extends javax.swing.JFrame {
             limpiarCampos();
             llenarTabla();
             JOptionPane.showMessageDialog(null, "!PROVEEDOR ACTUALIZADO EXITOSAMENTE!");
-        } catch (RuntimeException e) {
+        }  catch (EmailInvalidoException | CamposVaciosException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -412,7 +416,7 @@ public class GestionProveedoresView extends javax.swing.JFrame {
             alistarIdsCombobox();
             
             JOptionPane.showMessageDialog(null, "¡PROVEEDOR AGREGADO EXITOSAMENTE!");
-        } catch (RuntimeException e) {
+        }  catch (EmailInvalidoException | CamposVaciosException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed

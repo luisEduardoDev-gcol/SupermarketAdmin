@@ -1,6 +1,8 @@
 package Services;
 
 import Dao.EmpleadoDAO;
+import Exceptions.IdInvalidoException;
+import Exceptions.TipoEmpleadoInvalidoException;
 import Models.Empleados.Cajero;
 import Models.Empleados.Empleado;
 import Models.Empleados.Gerente;
@@ -19,7 +21,7 @@ public class EmpleadoService {
         this.empleados = this.empleadoDAO.getEmpleados();
     }
 
-    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws RuntimeException {
+    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws TipoEmpleadoInvalidoException {
         if(tipoEmpleado.equals("Gerente")) {
             Gerente gerente = new Gerente(0, nombreCompleto, correo, salarioMensual, bonificacion);
             this.empleadoDAO.agregarEmpleado(gerente);
@@ -30,19 +32,19 @@ public class EmpleadoService {
             Reponedor reponedor = new Reponedor(0, nombreCompleto, correo, salarioMensual);
             this.empleadoDAO.agregarEmpleado(reponedor);
         } else {
-            throw new RuntimeException("Tipo de empleado no válido");
+            throw new TipoEmpleadoInvalidoException("Tipo de empleado no válido");
         }
     }
 
-    public void eliminarEmpleado(int idEmpleado) throws RuntimeException {
+    public void eliminarEmpleado(int idEmpleado) throws IdInvalidoException {
         for (Empleado empleado : this.empleados) {
             this.empleadoDAO.eliminarEmpleado(idEmpleado);
             return;
         }
-        throw new RuntimeException("No se encuentra el empleado que desea eliminar");
+        throw new IdInvalidoException("No se encuentra el empleado que desea eliminar");
     }
 
-    public void editarEmpleado(String tipoEmpleado, int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws RuntimeException {
+    public void editarEmpleado(String tipoEmpleado, int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws TipoEmpleadoInvalidoException {
         if(tipoEmpleado.equals("Gerente")) {
             this.empleadoDAO.editarEmpleado(idEmpleado, new Gerente(0, nombreCompleto, correo, salarioMensual, bonificacion));
         } else if (tipoEmpleado.equals("Cajero")) {
@@ -50,7 +52,7 @@ public class EmpleadoService {
         } else {
             this.empleadoDAO.editarEmpleado(idEmpleado, new Reponedor(0, nombreCompleto, correo, salarioMensual));
         }
-        throw new RuntimeException("No se encuentra el empleado que desea editar");
+        throw new TipoEmpleadoInvalidoException("No se encuentra el empleado que desea editar");
     }
 
     public Empleado buscarEmpleado(int idEmpleado) {

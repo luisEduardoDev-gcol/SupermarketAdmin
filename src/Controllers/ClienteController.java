@@ -4,6 +4,8 @@
  */
 package Controllers;
 
+import Exceptions.CamposVaciosException;
+import Exceptions.EmailInvalidoException;
 import Models.Cliente;
 import Models.DetalleVenta;
 import Models.Venta;
@@ -21,15 +23,15 @@ public class ClienteController {
         clienteService = new ClienteService();
     }
     
-    public void agregarCliente(Cliente cliente) {
+    public void agregarCliente(Cliente cliente) throws EmailInvalidoException, CamposVaciosException {
         clienteService.agregarCliente(cliente);
     }
 
-    public void eliminarCliente(int idCliente) throws RuntimeException{
+    public void eliminarCliente(int idCliente){
         clienteService.eliminarCliente(idCliente);
     }
 
-    public void editarCliente(Cliente cliente) throws RuntimeException {
+    public void editarCliente(Cliente cliente) throws CamposVaciosException, EmailInvalidoException {
         clienteService.editarCliente(cliente);
     }
     

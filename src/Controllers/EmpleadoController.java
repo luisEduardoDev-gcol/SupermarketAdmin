@@ -1,5 +1,7 @@
 package Controllers;
 
+import Exceptions.IdInvalidoException;
+import Exceptions.TipoEmpleadoInvalidoException;
 import Models.Empleados.Empleado;
 import Services.EmpleadoService;
 
@@ -12,16 +14,16 @@ public class EmpleadoController {
         empleadoService = new EmpleadoService();
     }
 
-    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) {
+    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws TipoEmpleadoInvalidoException {
         this.empleadoService.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
     }
 
     //Metodo para eliminar empleado por su id empleado
-    public void eliminarEmpleado(int idEmpleado) {
+    public void eliminarEmpleado(int idEmpleado) throws IdInvalidoException {
         this.empleadoService.eliminarEmpleado(idEmpleado);
     }
 
-    public void editarEmpleado(String tipoEmpleado, int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion){
+    public void editarEmpleado(String tipoEmpleado, int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws TipoEmpleadoInvalidoException{
         this.empleadoService.editarEmpleado(tipoEmpleado, idEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
     }
 
