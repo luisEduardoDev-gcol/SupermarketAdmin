@@ -60,37 +60,6 @@ public class ViewCajero extends javax.swing.JFrame {
         }
     }
     
-    public String buscarIdCliente(String texto){
-        String regex = "^(\\d+)\\.\\s.*$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(texto);
-        
-        if (matcher.find()) {
-            String idCliente = matcher.group(1);
-            return idCliente;
-        }
-        return null;
-    }
-    
-    public double calcularTotal(){
-        double total = 0;
-        for (int i = 0; i < cajero.getCarrito().size(); i++) {
-            total += cajero.getCarrito().get(i).getProducto().getPrecio() * cajero.getCarrito().get(i).getCantidad();
-        }
-        LabelTotal.setText("TOTAL $" + total);
-        return total;
-    }
-    
-    public void ajustarStock(Producto producto){
-        int cantidadTotal = 0;
-        for (int i = 0; i < cajero.getCarrito().size(); i++) {
-            if(cajero.getCarrito().get(i).getProducto().getCodigoProducto() == producto.getCodigoProducto()){
-                cantidadTotal +=  cajero.getCarrito().get(i).getCantidad();
-            }
-        }
-        producto.setStock(producto.getStock()-cantidadTotal);
-    }
-    
     public void listarTabla(){
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Producto","Cantidad","Precio"});
@@ -125,7 +94,7 @@ public class ViewCajero extends javax.swing.JFrame {
     }
     
     public void listarCantidad(Producto producto){
-        ajustarStock(producto);
+        cajero.ajustarStock(producto);
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < producto.getStock(); i++) {
             model.addElement(i+1);
@@ -134,8 +103,6 @@ public class ViewCajero extends javax.swing.JFrame {
         valorUnidad.setText("VALOR UNIDAD --> $" + producto.getPrecio());
         descuento.setText("DESCUENTO --> %" + producto.getDescuento() );
     }
-    
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -380,9 +347,9 @@ public class ViewCajero extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            int idCliente = Integer.parseInt(buscarIdCliente(CCliente.getSelectedItem() + ""));
+            int idCliente = cc.buscarIdCliente(CCliente.getSelectedItem() + "");
             Cliente cliente = cc.buscarClientePorId(idCliente);
-            double total = calcularTotal();
+            double total = cajero.calcularTotal();
 
             Venta venta = new Venta(cliente, cajero, total, cajero.getCarrito());
             vc.agregarVenta(venta, venta.getDetallesVenta()); 
@@ -402,13 +369,12 @@ public class ViewCajero extends javax.swing.JFrame {
         Producto producto = pc.buscarProductoNombre(CProducto.getSelectedItem() + "");
         listarCantidad(producto);
         listarTabla();
-        calcularTotal();
+        LabelTotal.setText("TOTAL $" + cajero.calcularTotal());
         CCliente.setEnabled(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
-            int idCliente = Integer.parseInt(buscarIdCliente(CCliente.getSelectedItem() + ""));
             String productoNombre = (String) CProducto.getSelectedItem();
             int cantidad = Integer.parseInt(CCantidad.getSelectedItem() + "");
             
@@ -419,7 +385,7 @@ public class ViewCajero extends javax.swing.JFrame {
             listarTabla();
             
             CCliente.setEnabled(false);
-            calcularTotal();
+            LabelTotal.setText("TOTAL $" + cajero.calcularTotal());
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "NO HA SIDO POSIBLE AGREGAR ESTE PRODUCTO");
         }
@@ -445,41 +411,6 @@ public class ViewCajero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CCantidadActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new ViewCajero().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CCantidad;
