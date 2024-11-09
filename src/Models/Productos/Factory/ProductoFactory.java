@@ -4,21 +4,25 @@
  */
 package Models.Productos.Factory;
 
+import Models.Productos.Producto;
+
 /**
  *
  * @author Simón David Cruz S
  */
 public interface ProductoFactory {
     
-    public Bebidas crearBebidas();
+    public Producto crearProducto(String categoria,int codigoProduto, String nombreProducto, double precio, int stock, String fecha, int id_proveedor);
     
-    public Congelados crearCongelados();
+    public Bebidas crearBebidas(int codigoProduto, String nombreProducto, double precio, int stock, String fecha, int id_proveedor);
     
-    public Farmaceuticos crearFarmaceuticos();
+    public Congelados crearCongelados(int codigoProduto, String nombreProducto, double precio, int stock, String fecha, int id_proveedor);
     
-    public Higiene_y_Limpieza crearHigiene_y_Limpieza();
+    public Farmaceuticos crearFarmaceuticos(int codigoProduto, String nombreProducto, double precio, int stock, String fecha, int id_proveedor);
     
-    public Mascotas crearMascotas();
+    public Higiene_y_Limpieza crearHigiene_y_Limpieza(int codigoProduto, String nombreProducto, double precio, int stock, String fecha, int id_proveedor);
     
-    public Panaderia_y_Pasteleria crearPanaderia_y_Pasteleria();
+    public Mascotas crearMascotas(int codigoProduto, String nombreProducto, double precio, int stock, String fecha, int id_proveedor);
+    
+    public Panaderia_y_Pasteleria crearPanaderia_y_Pasteleria(int codigoProduto, String nombreProducto, double precio, int stock, String fecha, int id_proveedor);
 }

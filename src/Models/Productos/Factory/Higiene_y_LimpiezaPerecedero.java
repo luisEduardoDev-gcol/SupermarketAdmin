@@ -4,10 +4,16 @@
  */
 package Models.Productos.Factory;
 
+import Models.Productos.ProductoPerecedero;
+
 /**
  *
  * @author Simón David Cruz S
  */
-public class Higiene_y_LimpiezaPerecedero implements Higiene_y_Limpieza{
+public class Higiene_y_LimpiezaPerecedero extends ProductoPerecedero implements Higiene_y_Limpieza{
+    
+    public Higiene_y_LimpiezaPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String fechaCaducidad, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, fechaCaducidad, id_proveedor);
+    }
     
 }

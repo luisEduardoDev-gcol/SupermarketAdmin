@@ -4,10 +4,16 @@
  */
 package Models.Productos.Factory;
 
+import Models.Productos.ProductoNoPerecedero;
+
 /**
  *
  * @author Simón David Cruz S
  */
-public class MascotasNoPerecedero implements Mascotas{
+public class MascotasNoPerecedero extends ProductoNoPerecedero implements Mascotas{
+    
+    public MascotasNoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String duracionAlmacen, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
+    }
     
 }

@@ -4,10 +4,16 @@
  */
 package Models.Productos.Factory;
 
+import Models.Productos.ProductoNoPerecedero;
+
 /**
  *
  * @author Simón David Cruz S
  */
-public class Higiene_y_LimpiezaNoPerecedero implements Higiene_y_Limpieza{
+public class Higiene_y_LimpiezaNoPerecedero extends ProductoNoPerecedero implements Higiene_y_Limpieza{
+    
+    public Higiene_y_LimpiezaNoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String duracionAlmacen, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
+    }
     
 }

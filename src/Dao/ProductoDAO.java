@@ -39,6 +39,7 @@ public class ProductoDAO {
             pstmt.setDouble(2, producto.getPrecio());
             pstmt.setInt(3, producto.getStock());
             pstmt.setString(4, producto.getClass().getSimpleName() + "");
+            System.out.println(producto.getClass().getName() + "}}}" + producto.getClass().getInterfaces()[0].getSimpleName() + "--");
             pstmt.setString(5, producto.getFechaCaducidad());
             pstmt.setString(6, "");
             pstmt.setInt(7, producto.getIdProveedor());

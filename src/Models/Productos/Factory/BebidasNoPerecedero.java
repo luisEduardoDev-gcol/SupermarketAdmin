@@ -4,10 +4,18 @@
  */
 package Models.Productos.Factory;
 
+import Models.Productos.ProductoNoPerecedero;
+
 /**
  *
  * @author Simón David Cruz S
  */
-public class BebidasNoPerecedero implements Bebidas{
+public class BebidasNoPerecedero extends ProductoNoPerecedero implements Bebidas{
+    
+    public BebidasNoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String duracionAlmacen, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
+    }
+    
+    
     
 }

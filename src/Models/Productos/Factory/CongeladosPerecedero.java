@@ -4,10 +4,16 @@
  */
 package Models.Productos.Factory;
 
+import Models.Productos.ProductoPerecedero;
+
 /**
  *
  * @author Simón David Cruz S
  */
-public class CongeladosPerecedero implements Congelados{
+public class CongeladosPerecedero extends ProductoPerecedero implements Congelados{
+    
+    public CongeladosPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String fechaCaducidad, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, fechaCaducidad, id_proveedor);
+    }
     
 }

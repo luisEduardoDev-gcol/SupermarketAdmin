@@ -4,10 +4,16 @@
  */
 package Models.Productos.Factory;
 
+import Models.Productos.ProductoNoPerecedero;
+
 /**
  *
  * @author Simón David Cruz S
  */
-public class FarmaceuticosNoPerecedero implements Farmaceuticos{
+public class FarmaceuticosNoPerecedero extends ProductoNoPerecedero implements Farmaceuticos{
+    
+    public FarmaceuticosNoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String duracionAlmacen, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
+    }
     
 }
