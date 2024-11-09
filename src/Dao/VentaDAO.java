@@ -131,7 +131,7 @@ public class VentaDAO {
                 // Buscar cajero por idCajero
                 Cajero e = null;
                 for (Empleado empleado : empleados) {
-                    if (empleado.getIdEmpleado() == idCliente) {
+                    if (empleado.getIdEmpleado() == idCajero) {
                         e = (Cajero) empleado;
                     }
                 }
