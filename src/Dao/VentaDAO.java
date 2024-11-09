@@ -120,22 +120,27 @@ public class VentaDAO {
                 int idCajero = rs.getInt("id_cajero");
 
                 // Buscar cliente por idCliente
-                Cliente cliente = clientes.stream()
-                        .filter(c -> c.getIdCliente() == idCliente)
-                        .findFirst()
-                        .orElse(null);
+                Cliente c = null;
+                for (Cliente cliente : clientes) {
+                    if (cliente.getIdCliente() == idCliente) {
+                        c = cliente;
+                    }
+
+                }
 
                 // Buscar cajero por idCajero
-                Cajero cajero = (Cajero) empleados.stream()
-                        .filter(e -> e.getIdEmpleado() == idCajero)
-                        .findFirst()
-                        .orElse(null);
+                Cajero e = null;
+                for (Empleado empleado : empleados) {
+                    if (empleado.getIdEmpleado() == idCliente) {
+                        e = (Cajero) empleado;
+                    }
+                }
 
                 // Obtener detalles de la venta
                 ArrayList<DetalleVenta> detallesVenta = getDetallesVenta(idVenta, productos);
 
                 // Crear y agregar la venta a la lista
-                Venta venta = new Venta(cliente, cajero, total, detallesVenta);
+                Venta venta = new Venta(c, e, total, detallesVenta);
                 venta.setIdVenta(idVenta);
                 venta.setFecha(fecha);
                 ventas.add(venta);
