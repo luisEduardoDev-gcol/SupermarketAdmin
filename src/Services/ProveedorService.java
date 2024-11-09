@@ -20,7 +20,7 @@ public class ProveedorService {
     private ProveedorDAO proveedorDAO;
 
     public ProveedorService() {
-        proveedorDAO = new ProveedorDAO();
+        proveedorDAO = ProveedorDAO.getInstancia();
     }
 
     public ArrayList<Proveedor> getProveedores() {

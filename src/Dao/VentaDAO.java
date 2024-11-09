@@ -24,10 +24,18 @@ import java.sql.ResultSet;
  */
 public class VentaDAO {
     private DataBaseConnector dbc = new DataBaseConnector();
-    private EmpleadoDAO empDAO = new EmpleadoDAO();
-    private ClienteDAO cliDAO = new ClienteDAO();
-    private ProductoDAO prodDAO = new ProductoDAO();
-
+    private EmpleadoDAO empDAO = EmpleadoDAO.getInstancia();
+    private ClienteDAO cliDAO = ClienteDAO.getInstancia();
+    private ProductoDAO prodDAO = ProductoDAO.getInstancia();
+    private static VentaDAO instancia;
+    
+    private VentaDAO() {
+    }
+    
+    public static VentaDAO getInstancia(){
+        instancia = instancia == null? new VentaDAO():instancia;
+        return instancia;
+    }
 
     public void agregarVenta(Venta venta, ArrayList<DetalleVenta> detalles){
         String sql1 = "INSERT INTO Ventas (fecha,total,id_cliente,id_cajero)"

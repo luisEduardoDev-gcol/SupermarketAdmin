@@ -22,7 +22,17 @@ import java.util.ArrayList;
 public class ProveedorDAO {
 
     private DataBaseConnector dbc = new DataBaseConnector();
-
+    private static ProveedorDAO instancia;
+    
+    private ProveedorDAO() {
+    }
+    
+    public static ProveedorDAO getInstancia(){
+        instancia = instancia == null? new ProveedorDAO():instancia;
+        return instancia;
+    }
+    
+    
     public void agregarProveedor(Proveedor proveedor) throws RuntimeException {
         String sql = "INSERT INTO Proveedores (nombre_empresa,telefono_contacto,email)"
                 + " VALUES (?,?,?)";
