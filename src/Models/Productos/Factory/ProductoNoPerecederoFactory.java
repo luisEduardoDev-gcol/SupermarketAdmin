@@ -20,13 +20,14 @@ public class ProductoNoPerecederoFactory implements ProductoFactory{
             return (Producto)crearCongelados(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
         }else if(categoria.equals("Farmaceuticos")){
             return (Producto)crearFarmaceuticos(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
-        }else if(categoria.equals("Higiene y Limpieza")){
+        }else if(categoria.equals("Higiene y limpieza")){
             return (Producto)crearHigiene_y_Limpieza(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
         }else if(categoria.equals("Mascotas")){
             return (Producto)crearMascotas(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
-        }else if(categoria.equals("Panaderia y Pasteleria")){
+        }else if(categoria.equals("Panaderia y pasteleria")){
             return (Producto)crearPanaderia_y_Pasteleria(codigoProduto, nombreProducto, precio, stock, duracionAlmacen, id_proveedor);
         }
+        System.out.println("--"+categoria + "--");
         throw new RuntimeException("Categoria de producto inexsitente");
     }
     

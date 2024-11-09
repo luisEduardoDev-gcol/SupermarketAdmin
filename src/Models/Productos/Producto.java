@@ -18,6 +18,7 @@ public abstract class Producto {
     private int stock;
     private int id_proveedor;
     private double descuento;
+    private String categoria;
 
     public Producto(int codigoProducto, String nombreProducto, double precio, int stock, int id_proveedor) {
         this.codigoProducto = codigoProducto;

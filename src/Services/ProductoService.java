@@ -25,10 +25,9 @@ public class ProductoService {
 
     //metodo registrar(validar no mismo codigo)
     public void agregarProducto(Producto producto) {
-        
         if (producto instanceof ProductoPerecedero){
             pd.agregarProductoPerecedero((ProductoPerecedero)producto);
-        }else{
+        }else if(producto instanceof ProductoNoPerecedero){
             pd.agregarProductoNoPerecedero((ProductoNoPerecedero)producto);
         }
     }
