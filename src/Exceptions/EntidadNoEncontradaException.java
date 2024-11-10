@@ -8,8 +8,8 @@ package Exceptions;
  *
  * @author PC
  */
-public class IdInvalidoException extends Exception {
-    public IdInvalidoException(String mensaje) {
+public class EntidadNoEncontradaException extends Exception {
+    public EntidadNoEncontradaException(String mensaje) {
         super(mensaje);
     }
 }

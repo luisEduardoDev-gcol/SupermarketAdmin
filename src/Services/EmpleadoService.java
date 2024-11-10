@@ -1,7 +1,7 @@
 package Services;
 
 import Dao.EmpleadoDAO;
-import Exceptions.IdInvalidoException;
+import Exceptions.EntidadNoEncontradaException;
 import Exceptions.TipoEmpleadoInvalidoException;
 import Models.Empleados.Cajero;
 import Models.Empleados.Empleado;
@@ -36,12 +36,12 @@ public class EmpleadoService {
         }
     }
 
-    public void eliminarEmpleado(int idEmpleado) throws IdInvalidoException {
+    public void eliminarEmpleado(int idEmpleado) throws EntidadNoEncontradaException {
         for (Empleado empleado : this.empleados) {
             this.empleadoDAO.eliminarEmpleado(idEmpleado);
             return;
         }
-        throw new IdInvalidoException("No se encuentra el empleado que desea eliminar");
+        throw new EntidadNoEncontradaException("No se encuentra el empleado que desea eliminar");
     }
 
     public void editarEmpleado(String tipoEmpleado, int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws TipoEmpleadoInvalidoException {
