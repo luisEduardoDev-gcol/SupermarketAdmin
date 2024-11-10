@@ -1,6 +1,7 @@
 package Services;
 
 import Dao.ProductoDAO;
+import Exceptions.ListaVaciaException;
 import Exceptions.StockInsuficienteException;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
@@ -59,6 +60,44 @@ public class ProductoService {
     //buscar producto codigo
     public Producto buscarProductoCodigo(int codProducto) {
         return pd.buscarProductoCodigo(codProducto);
+    }
+
+    public ArrayList<Producto> buscarProductoCriterio(String criterio) throws ListaVaciaException {
+            ArrayList<Producto> productos = this.pd.getProductos("codigo_producto", false);
+        ArrayList<Producto> productosFiltrados = new ArrayList<>();
+
+        for(Producto producto: productos){
+            if(criterio instanceof String){
+                if(producto.getNombreProducto().equals(criterio)){
+                    productosFiltrados.add(producto);
+                    continue;
+                }
+            }
+
+            if(criterio instanceof Integer){
+                if(producto.getCodigoProducto() == Integer.parseInt(criterio)){
+                    productosFiltrados.add(producto);
+                    continue;
+                }
+            }
+
+            if(producto.getPrecio() == Integer.parseInt(criterio)){
+                productosFiltrados.add(producto);
+                continue;
+            }
+
+            if(producto.getStock() == Integer.parseInt(criterio)){
+                productosFiltrados.add(producto);
+                continue;
+            }
+        }
+
+        if(productosFiltrados.isEmpty()){
+            throw new ListaVaciaException("No hay ningun producto con ese criterio de busqueda.");
+        }
+
+        return productosFiltrados;
+
     }
     
     public ArrayList<Producto> getProductos(int criterio, boolean esStockBajo){

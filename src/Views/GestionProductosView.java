@@ -8,6 +8,7 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
+import Exceptions.ListaVaciaException;
 import Models.Empleados.Empleado;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
@@ -130,6 +131,29 @@ public class GestionProductosView extends javax.swing.JFrame {
         }
         tabla.setModel(modelo);
     }
+
+    public void alistarTablaProductosCrieterio(String criterio){
+        DefaultTableModel modelo = new DefaultTableModel();
+
+        modelo.setColumnIdentifiers(new Object[]{"Proveedor","Codigo", "Nombre", "Precio", "Stock", "Tipo", "Caducidad", "DuracionAlmacen"});
+
+        for (int i = 0; i < pc.buscarProductoCriterio(criterio).size(); i++) {
+            Producto pro = pc.buscarProductoCriterio(criterio).get(i);
+            modelo.addRow(new Object[]{
+                    pro.getIdProveedor(),
+                    pro.getCodigoProducto(),
+                    pro.getNombreProducto(),
+                    pro.getPrecio(),
+                    pro.getStock(),
+                    pro.getClass().getSimpleName().equals("ProductoPerecedero")? "Perecedero":"NoPerecedero",
+                    pro instanceof ProductoPerecedero? ((ProductoPerecedero)pro).getFechaCaducidad() : "",
+                    pro instanceof ProductoNoPerecedero? ((ProductoNoPerecedero)pro).getDuracionAlmacen() : ""
+            });
+        }
+        tabla.setModel(modelo);
+    }
+
+
     
 
     @SuppressWarnings("unchecked")
@@ -167,6 +191,8 @@ public class GestionProductosView extends javax.swing.JFrame {
         CProveedor = new javax.swing.JComboBox<>();
         comboCodigo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        txtBuscardor = new javax.swing.JTextField();
 
         btnRegresar.setText("jButton2");
 
@@ -377,7 +403,7 @@ public class GestionProductosView extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -448,15 +474,28 @@ public class GestionProductosView extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
+        jButton2.setText("buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -466,7 +505,11 @@ public class GestionProductosView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -611,6 +654,15 @@ public class GestionProductosView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_notificacionesBtnActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            String criterio = txtBuscardor.getText();
+            this.alistarTablaProductosCrieterio(criterio);
+        } catch(ListaVaciaException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CProveedor;
@@ -627,6 +679,7 @@ public class GestionProductosView extends javax.swing.JFrame {
     private com.raven.datechooser.DateChooser date;
     private javax.swing.JTextField fechaTxt;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -644,5 +697,6 @@ public class GestionProductosView extends javax.swing.JFrame {
     private javax.swing.JButton regresar;
     private javax.swing.JTextField stockTxt;
     private javax.swing.JTable tabla;
+    private javax.swing.JTextField txtBuscardor;
     // End of variables declaration//GEN-END:variables
 }
