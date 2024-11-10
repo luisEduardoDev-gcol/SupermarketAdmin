@@ -1,6 +1,7 @@
 package Services;
 
 import Dao.ProductoDAO;
+import Exceptions.StockInsuficienteException;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
 import Models.Productos.ProductoPerecedero;
@@ -60,9 +61,13 @@ public class ProductoService {
         return pd.buscarProductoCodigo(codProducto);
     }
     
-    public ArrayList<Producto> getProductos(int criterio){
+    public ArrayList<Producto> getProductos(int criterio, boolean esStockBajo){
         String buffer = criterio == 0? "codigo_producto" : criterio == 1? "nombre": criterio == 2? "precio":"stock";
-        return pd.getProductos(buffer);
+        return pd.getProductos(buffer, esStockBajo);
+    }
+    public void editarStock(int codProducto, int nuevoStock, int stockSeleccionado) throws StockInsuficienteException {
+        if (nuevoStock<=stockSeleccionado) throw new StockInsuficienteException("El stock puesto debe ser mayor al anterior");
+        pd.actualizarStockProducto(codProducto, nuevoStock);
     }
 
 }

@@ -117,10 +117,10 @@ public class ViewCajero extends javax.swing.JFrame {
     public void listarProductos(){
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         
-        for (int i = 0; i < pc.getProductos(0).size(); i++) {
-            model.addElement(pc.getProductos(0).get(i).getNombreProducto());
+        for (int i = 0; i < pc.getProductos(0, false).size(); i++) {
+            model.addElement(pc.getProductos(0, false).get(i).getNombreProducto());
         }
-        listarCantidad(pc.getProductos(0).get(0));
+        listarCantidad(pc.getProductos(0, false).get(0));
         CProducto.setModel(model);
     }
     
@@ -134,9 +134,18 @@ public class ViewCajero extends javax.swing.JFrame {
         valorUnidad.setText("VALOR UNIDAD --> $" + producto.getPrecio());
         descuento.setText("DESCUENTO --> %" + producto.getDescuento() );
     }
-    
-    
-    
+    private void notificarStockBajo() {
+        String notis = "";
+        for (int i=0; i < cajero.getCarrito().size(); i++) {
+            Producto producto = cajero.getCarrito().get(i).getProducto();
+            if (producto.getStock() <= 15) {
+                notis += "El producto '" + producto.getNombreProducto() + "' tiene un stock de: " + producto.getStock() + "\n";
+            }
+        }
+        if (!notis.isBlank()) {
+            JOptionPane.showMessageDialog(this, "----------- ALERTA STOCKS BAJOS ---------------\n\n" + notis);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -387,6 +396,8 @@ public class ViewCajero extends javax.swing.JFrame {
             Venta venta = new Venta(cliente, cajero, total, cajero.getCarrito());
             vc.agregarVenta(venta, venta.getDetallesVenta()); 
             JOptionPane.showMessageDialog(null, "Compra realizada con exito");
+            notificarStockBajo();
+            
             cajero.getCarrito().clear();
             CCliente.setEnabled(true);
             listarTabla();
@@ -444,42 +455,6 @@ public class ViewCajero extends javax.swing.JFrame {
     private void CCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CCantidadActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //new ViewCajero().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CCantidad;

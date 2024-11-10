@@ -5,10 +5,14 @@
 package Views;
 
 import Controllers.*;
+import Exceptions.ListaVaciaException;
 import Models.Empleados.Empleado;
+import Models.Productos.Producto;
 import Models.Venta;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +26,9 @@ public class ReporteVentas extends javax.swing.JFrame {
     ProveedorController pvC;
     Empleado empleado;
     VentaController vc;
+    ArrayList<Venta> ventasFiltradas;
+    ArrayList<Producto> productosMasVendidos;
+
 
     /**
      * Creates new form ReporteVentas
@@ -37,8 +44,12 @@ public class ReporteVentas extends javax.swing.JFrame {
         this.cc = cc;
         this.pvC = pvC;
         this.empleado = empleado;
+        this.ventasFiltradas = new ArrayList<>();
+        this.productosMasVendidos = new ArrayList<>();
 
         this.llenarTabla();
+        this.llenarTablaP();
+        this.alistarBox();
     }
 
     private void llenarTabla() {
@@ -58,6 +69,67 @@ public class ReporteVentas extends javax.swing.JFrame {
         tablaVentas.setModel(tableModel);
     }
 
+    private void llenarTablaFiltradas(String fecha) {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        this.ventasFiltradas = this.vc.filtrarVentas(fecha);
+        tableModel.setColumnIdentifiers(new Object[]{"ID Venta", "Fecha", "Total", "Cliente", "Cajero"});
+
+        for (Venta venta : this.ventasFiltradas) {
+            tableModel.addRow(new Object[]{
+                    venta.getIdVenta(),
+                    venta.getFecha(),
+                    venta.getTotal(),
+                    venta.getCliente().getNombreCompleto(),
+                    venta.getCajero().getNombreCompleto()
+            });
+        }
+
+        tablaVentas.setModel(tableModel);
+    }
+
+    private void llenarTablaProductos(String filtro) {
+        DefaultTableModel model = new DefaultTableModel();
+        this.productosMasVendidos = this.vc.filtrarProductosMasVendidos(filtro);
+        model.setColumnIdentifiers(new Object[]{"Proveedor","Codigo", "Nombre", "Precio", "Tipo"});
+
+        for (Producto pro : this.productosMasVendidos) {
+            model.addRow(new Object[]{
+                    pro.getIdProveedor(),
+                    pro.getCodigoProducto(),
+                    pro.getNombreProducto(),
+                    pro.getPrecio(),
+                    pro.getClass().getSimpleName().equals("ProductoPerecedero")? "Perecedero":"NoPerecedero",
+            });
+        }
+        tablaProductosMasVendidos.setModel(model);
+    }
+
+    private void llenarTablaP() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Proveedor","Codigo", "Nombre", "Precio", "Tipo"});
+
+        for (Producto pro : this.vc.getProductos()) {
+            model.addRow(new Object[]{
+                    pro.getIdProveedor(),
+                    pro.getCodigoProducto(),
+                    pro.getNombreProducto(),
+                    pro.getPrecio(),
+                    pro.getClass().getSimpleName().equals("ProductoPerecedero")? "Perecedero":"NoPerecedero",
+            });
+        }
+        tablaProductosMasVendidos.setModel(model);
+    }
+
+    private void alistarBox(){
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+
+        modelo.addElement("Dia");
+        modelo.addElement("Semana");
+        modelo.addElement("Mes");
+
+        cbxFiltro.setModel(modelo);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,14 +139,51 @@ public class ReporteVentas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelTablaVentas = new java.awt.Panel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaProductosMasVendidos = new javax.swing.JTable();
+        lblProductosVendidos = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        cbxFiltro = new javax.swing.JComboBox<>();
+        btnFiltrar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVentas = new javax.swing.JTable();
-        btnRegresar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelTablaVentas.setBackground(new java.awt.Color(60, 63, 65));
+        tablaProductosMasVendidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaProductosMasVendidos);
+
+        lblProductosVendidos.setText("PRODUCTOS MAS VENDIDOS EN EL/LA: ");
+
+        jLabel1.setText("Filtrar por:");
+
+        cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         tablaVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -89,50 +198,67 @@ public class ReporteVentas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaVentas);
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelTablaVentasLayout = new javax.swing.GroupLayout(panelTablaVentas);
-        panelTablaVentas.setLayout(panelTablaVentasLayout);
-        panelTablaVentasLayout.setHorizontalGroup(
-            panelTablaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
-            .addGroup(panelTablaVentasLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnRegresar))
-        );
-        panelTablaVentasLayout.setVerticalGroup(
-            panelTablaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaVentasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRegresar))
-        );
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelTablaVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblProductosVendidos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFiltrar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelTablaVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblProductosVendidos)
+                    .addComponent(jLabel1)
+                    .addComponent(btnFiltrar)
+                    .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegresar)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        try{
+            String filtro = cbxFiltro.getSelectedItem().toString();
+            this.llenarTablaFiltradas(filtro);
+            this.llenarTablaProductos(filtro);
+        } catch(ListaVaciaException  e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         ViewGerente vg = new ViewGerente(pc,ec,cc,pvC,this.empleado);
@@ -176,9 +302,15 @@ public class ReporteVentas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cbxFiltro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.Panel panelTablaVentas;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblProductosVendidos;
+    private javax.swing.JTable tablaProductosMasVendidos;
     private javax.swing.JTable tablaVentas;
     // End of variables declaration//GEN-END:variables
 }
