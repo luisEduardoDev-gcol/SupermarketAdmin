@@ -4,20 +4,23 @@
  */
 package Dao;
 
-/**
- *
- * @author Simón David Cruz S
- */
 import Models.Productos.Factory.ProductoNoPerecederoFactory;
 import Models.Productos.Factory.ProductoPerecederoFactory;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
 import Models.Productos.ProductoPerecedero;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+
+/**
+ *
+ * @author Simón David Cruz S
+ */
+
 
 public class ProductoDAO {
 
