@@ -1,5 +1,6 @@
 package Controllers;
 
+import Exceptions.ListaVaciaException;
 import Exceptions.StockInsuficienteException;
 import Models.Productos.Producto;
 import Services.ProductoService;
@@ -43,6 +44,10 @@ public class ProductoController {
     
     public void editarStock(int codProducto, int nuevoStock, int stockSeleccionado) throws StockInsuficienteException {
         productoService.editarStock(codProducto, nuevoStock, stockSeleccionado);
+    }
+
+    public ArrayList<Producto> buscarProductoCriterio(String criterio) {
+        return productoService.buscarProductoCriterio(criterio);
     }
 
     //buscar producto precio
