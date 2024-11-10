@@ -69,7 +69,7 @@ public class ProductoDAO {
     }
 
     public ArrayList<Producto> getProductos(String criterio, boolean esStockBajo) {
-        
+
         ArrayList<Producto> productos = new ArrayList<>();
         String sql;
         if (!esStockBajo) {
@@ -77,7 +77,7 @@ public class ProductoDAO {
         } else {
             sql = "SELECT * FROM Productos WHERE stock <= 15";
         }
-        
+
         try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -196,6 +196,19 @@ public class ProductoDAO {
             System.out.println("FALLO EN getProductoByName" + e.getMessage());
         }
         return producto;
+    }
+
+    public void actualizarStockProducto(int codigoProducto, int nuevoStock) {
+        String sql = "UPDATE Productos SET stock = ? WHERE codigo_producto = ?";
+
+        try (Connection con = dbc.connect(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, nuevoStock);
+            pstmt.setInt(2, codigoProducto);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Fallo al actualizar el stock del producto: " + e.getMessage());
+        }
     }
 
 }

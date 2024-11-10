@@ -11,6 +11,7 @@ import Controllers.ProveedorController;
 import Models.Empleados.Cajero;
 import Models.Empleados.Gerente;
 import Models.Empleados.Empleado;
+import Models.Empleados.Reponedor;
 import Views.ViewGerente;
 
 import javax.swing.*;
@@ -132,6 +133,9 @@ public class PrincipalView extends javax.swing.JFrame {
                 } else if (empleado instanceof Cajero) {
                     ViewCajero vc = new ViewCajero((Cajero)empleado, this.pc, this.ec, this.cc, this.pvC);
                     vc.setVisible(true);
+                    this.dispose();
+                } else if (empleado instanceof Reponedor) {
+                    new ViewReponedor((Reponedor) empleado).setVisible(true);
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "El Gerente o Cajero no es correcto");

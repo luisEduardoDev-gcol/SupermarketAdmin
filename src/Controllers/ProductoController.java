@@ -1,5 +1,6 @@
 package Controllers;
 
+import Exceptions.StockInsuficienteException;
 import Models.Productos.Producto;
 import Services.ProductoService;
 import java.util.ArrayList;
@@ -38,6 +39,10 @@ public class ProductoController {
     //buscar producto codigo
     public Producto buscarProductoCodigo(int codProducto) {
         return productoService.buscarProductoCodigo(codProducto);
+    }
+    
+    public void editarStock(int codProducto, int nuevoStock, int stockSeleccionado) throws StockInsuficienteException {
+        productoService.editarStock(codProducto, nuevoStock, stockSeleccionado);
     }
 
     //buscar producto precio
