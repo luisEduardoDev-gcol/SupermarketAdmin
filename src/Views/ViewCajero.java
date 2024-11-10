@@ -60,37 +60,6 @@ public class ViewCajero extends javax.swing.JFrame {
         }
     }
     
-    public String buscarIdCliente(String texto){
-        String regex = "^(\\d+)\\.\\s.*$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(texto);
-        
-        if (matcher.find()) {
-            String idCliente = matcher.group(1);
-            return idCliente;
-        }
-        return null;
-    }
-    
-    public double calcularTotal(){
-        double total = 0;
-        for (int i = 0; i < cajero.getCarrito().size(); i++) {
-            total += cajero.getCarrito().get(i).getProducto().getPrecio() * cajero.getCarrito().get(i).getCantidad();
-        }
-        LabelTotal.setText("TOTAL $" + total);
-        return total;
-    }
-    
-    public void ajustarStock(Producto producto){
-        int cantidadTotal = 0;
-        for (int i = 0; i < cajero.getCarrito().size(); i++) {
-            if(cajero.getCarrito().get(i).getProducto().getCodigoProducto() == producto.getCodigoProducto()){
-                cantidadTotal +=  cajero.getCarrito().get(i).getCantidad();
-            }
-        }
-        producto.setStock(producto.getStock()-cantidadTotal);
-    }
-    
     public void listarTabla(){
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Producto","Cantidad","Precio"});
@@ -125,7 +94,7 @@ public class ViewCajero extends javax.swing.JFrame {
     }
     
     public void listarCantidad(Producto producto){
-        ajustarStock(producto);
+        cajero.ajustarStock(producto);
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < producto.getStock(); i++) {
             model.addElement(i+1);
@@ -134,6 +103,7 @@ public class ViewCajero extends javax.swing.JFrame {
         valorUnidad.setText("VALOR UNIDAD --> $" + producto.getPrecio());
         descuento.setText("DESCUENTO --> %" + producto.getDescuento() );
     }
+
     private void notificarStockBajo() {
         String notis = "";
         for (int i=0; i < cajero.getCarrito().size(); i++) {
@@ -146,6 +116,7 @@ public class ViewCajero extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "----------- ALERTA STOCKS BAJOS ---------------\n\n" + notis);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -389,9 +360,9 @@ public class ViewCajero extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
-            int idCliente = Integer.parseInt(buscarIdCliente(CCliente.getSelectedItem() + ""));
+            int idCliente = cc.buscarIdCliente(CCliente.getSelectedItem() + "");
             Cliente cliente = cc.buscarClientePorId(idCliente);
-            double total = calcularTotal();
+            double total = cajero.calcularTotal();
 
             Venta venta = new Venta(cliente, cajero, total, cajero.getCarrito());
             vc.agregarVenta(venta, venta.getDetallesVenta()); 
@@ -413,13 +384,12 @@ public class ViewCajero extends javax.swing.JFrame {
         Producto producto = pc.buscarProductoNombre(CProducto.getSelectedItem() + "");
         listarCantidad(producto);
         listarTabla();
-        calcularTotal();
+        LabelTotal.setText("TOTAL $" + cajero.calcularTotal());
         CCliente.setEnabled(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
-            int idCliente = Integer.parseInt(buscarIdCliente(CCliente.getSelectedItem() + ""));
             String productoNombre = (String) CProducto.getSelectedItem();
             int cantidad = Integer.parseInt(CCantidad.getSelectedItem() + "");
             
@@ -430,7 +400,7 @@ public class ViewCajero extends javax.swing.JFrame {
             listarTabla();
             
             CCliente.setEnabled(false);
-            calcularTotal();
+            LabelTotal.setText("TOTAL $" + cajero.calcularTotal());
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "NO HA SIDO POSIBLE AGREGAR ESTE PRODUCTO");
         }
@@ -456,6 +426,7 @@ public class ViewCajero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CCantidadActionPerformed
 
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CCantidad;
     private javax.swing.JComboBox<String> CCliente;

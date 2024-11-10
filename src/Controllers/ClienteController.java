@@ -38,6 +38,10 @@ public class ClienteController {
     public Cliente buscarClientePorId(int idCliente){
         return clienteService.buscarClientePorId(idCliente);
     }
+    
+    public int buscarIdCliente(String texto){
+        return clienteService.buscarIdCliente(texto);
+    }
      
     public ArrayList<Cliente> getClientes() {
         return clienteService.getClientes();
