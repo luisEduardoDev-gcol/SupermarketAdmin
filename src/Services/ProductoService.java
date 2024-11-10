@@ -63,43 +63,38 @@ public class ProductoService {
     }
 
     public ArrayList<Producto> buscarProductoCriterio(String criterio) throws ListaVaciaException {
-            ArrayList<Producto> productos = this.pd.getProductos("codigo_producto", false);
+        ArrayList<Producto> productos = this.pd.getProductos("codigo_producto", false);
         ArrayList<Producto> productosFiltrados = new ArrayList<>();
 
-        for(Producto producto: productos){
-            if(criterio instanceof String){
-                if(producto.getNombreProducto().equals(criterio)){
+        boolean esNumero = false;
+        int criterioInt = -1;
+
+        try {
+            criterioInt = Integer.parseInt(criterio);
+            esNumero = true;
+        } catch (NumberFormatException e) {
+            esNumero = false;
+        }
+
+        for (Producto producto : productos) {
+            if (!esNumero) {
+                if (producto.getNombreProducto().equalsIgnoreCase(criterio)) {
                     productosFiltrados.add(producto);
-                    continue;
                 }
-            }
-
-            if(criterio instanceof Integer){
-                if(producto.getCodigoProducto() == Integer.parseInt(criterio)){
+            } else {
+                if (producto.getCodigoProducto() == criterioInt || producto.getPrecio() == criterioInt || producto.getStock() == criterioInt) {
                     productosFiltrados.add(producto);
-                    continue;
                 }
-            }
-
-            if(producto.getPrecio() == Integer.parseInt(criterio)){
-                productosFiltrados.add(producto);
-                continue;
-            }
-
-            if(producto.getStock() == Integer.parseInt(criterio)){
-                productosFiltrados.add(producto);
-                continue;
             }
         }
 
-        if(productosFiltrados.isEmpty()){
-            throw new ListaVaciaException("No hay ningun producto con ese criterio de busqueda.");
+        if (productosFiltrados.isEmpty()) {
+            throw new ListaVaciaException("No hay ningun productos con ese criterio de busqueda.");
         }
 
         return productosFiltrados;
-
     }
-    
+
     public ArrayList<Producto> getProductos(int criterio, boolean esStockBajo){
         String buffer = criterio == 0? "codigo_producto" : criterio == 1? "nombre": criterio == 2? "precio":"stock";
         return pd.getProductos(buffer, esStockBajo);

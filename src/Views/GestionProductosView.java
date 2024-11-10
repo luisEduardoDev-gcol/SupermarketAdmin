@@ -47,7 +47,6 @@ public class GestionProductosView extends javax.swing.JFrame {
         alistarBox1();
         alistarBox2();
         alistarBoxCodigos();
-        alistarComboOrden();
     }
 
     /**
@@ -89,17 +88,6 @@ public class GestionProductosView extends javax.swing.JFrame {
             modelo.addElement(pc.getProductos(0, false).get(i).getCodigoProducto() + "");
         }
         comboCodigo.setModel(modelo);
-    }
-    
-    public void alistarComboOrden(){
-        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        
-        modelo.addElement("Codigo");
-        modelo.addElement("Nombre");
-        modelo.addElement("Precio");
-        modelo.addElement("Stock");
-        
-        comboOrden.setModel(modelo);
     }
     
     public void vaciarCampos(){
@@ -168,9 +156,9 @@ public class GestionProductosView extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
         regresar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        comboOrden = new javax.swing.JComboBox<>();
-        btnOrdenar = new javax.swing.JButton();
         notificacionesBtn = new javax.swing.JButton();
+        txtBuscardor = new javax.swing.JTextField();
+        btnBUSCAR = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         CTipo = new javax.swing.JComboBox<>();
@@ -191,8 +179,6 @@ public class GestionProductosView extends javax.swing.JFrame {
         CProveedor = new javax.swing.JComboBox<>();
         comboCodigo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        txtBuscardor = new javax.swing.JTextField();
 
         btnRegresar.setText("jButton2");
 
@@ -225,24 +211,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel7.setText("ORDENAR POR: ");
-
-        comboOrden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboOrden.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        comboOrden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboOrdenActionPerformed(evt);
-            }
-        });
-
-        btnOrdenar.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnOrdenar.setText("Ordenar");
-        btnOrdenar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenarActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("BUSCADOR:");
 
         notificacionesBtn.setBackground(new java.awt.Color(0, 102, 102));
         notificacionesBtn.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -251,6 +220,14 @@ public class GestionProductosView extends javax.swing.JFrame {
         notificacionesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 notificacionesBtnActionPerformed(evt);
+            }
+        });
+
+        btnBUSCAR.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        btnBUSCAR.setText("BUSCAR");
+        btnBUSCAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBUSCARActionPerformed(evt);
             }
         });
 
@@ -264,10 +241,10 @@ public class GestionProductosView extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBUSCAR)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -279,13 +256,11 @@ public class GestionProductosView extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(comboOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBUSCAR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -474,28 +449,15 @@ public class GestionProductosView extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        jButton2.setText("buscar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -505,11 +467,7 @@ public class GestionProductosView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(txtBuscardor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         pack();
@@ -540,7 +498,6 @@ public class GestionProductosView extends javax.swing.JFrame {
             }
 
             pc.agregarProducto(pp);
-            alistarTabla(comboOrden.getSelectedIndex());
             vaciarCampos();
             alistarBoxCodigos();
             JOptionPane.showMessageDialog(null, "¡PRODUCTO SUMINISTRADO EXITOSAMENTE!");
@@ -585,7 +542,6 @@ public class GestionProductosView extends javax.swing.JFrame {
             }
 
             pc.editarProducto(pp);
-            alistarTabla(comboOrden.getSelectedIndex());
             vaciarCampos();
             JOptionPane.showMessageDialog(null, "¡PRODUCTO EDITADO EXITOSAMENTE!");
         }catch(RuntimeException e ){
@@ -627,7 +583,6 @@ public class GestionProductosView extends javax.swing.JFrame {
         try {
             int codigo = Integer.parseInt(comboCodigo.getSelectedItem() + "");
             pc.eliminarProducto(codigo);
-            alistarTabla(comboOrden.getSelectedIndex());
             vaciarCampos();
             alistarBoxCodigos();
             JOptionPane.showMessageDialog(null, "¡PRODUCTO ELIMINADO EXITOSAMENTE!");
@@ -637,49 +592,40 @@ public class GestionProductosView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
-        alistarTabla(comboOrden.getSelectedIndex());
-    }//GEN-LAST:event_btnOrdenarActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         date.showPopup();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void comboOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboOrdenActionPerformed
 
     private void notificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificacionesBtnActionPerformed
         new NotificacionesStockBajosView(pc,ec,cc,pvC,this.empleado).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_notificacionesBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnBUSCARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBUSCARActionPerformed
         try{
             String criterio = txtBuscardor.getText();
             this.alistarTablaProductosCrieterio(criterio);
         } catch(ListaVaciaException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
+            this.alistarTabla(0);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnBUSCARActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CProveedor;
     private javax.swing.JComboBox<String> CTipo;
     private javax.swing.JLabel atributo;
+    private javax.swing.JButton btnBUSCAR;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnOrdenar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSuministrar;
     private javax.swing.JComboBox<String> comboCodigo;
-    private javax.swing.JComboBox<String> comboOrden;
     private com.raven.datechooser.DateChooser date;
     private javax.swing.JTextField fechaTxt;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
