@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import Models.Cliente;
 import Models.DetalleVenta;
 import Models.Venta;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -71,6 +73,18 @@ public class ClienteService {
         return cliente.getEmail().trim().isEmpty()
                 || cliente.getNombreCompleto().trim().isEmpty() || cliente.getTelefono().trim().isEmpty();
 
+    }
+    
+    public int buscarIdCliente(String texto){
+        String regex = "^(\\d+)\\.\\s.*$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(texto);
+        
+        if (matcher.find()) {
+            int idCliente = Integer.parseInt(matcher.group(1));
+            return idCliente;
+        }
+        return -1;
     }
     
     // Obtener compras que ha hecho ese cliente
