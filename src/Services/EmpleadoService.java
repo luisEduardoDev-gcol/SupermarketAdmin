@@ -10,7 +10,7 @@ import Models.Empleados.Reponedor;
 
 import java.util.ArrayList;
 
-public class EmpleadoService {
+public class EmpleadoService implements IEmpleadoService {
 
     EmpleadoDAO empleadoDAO;
     ArrayList<Empleado> empleados;

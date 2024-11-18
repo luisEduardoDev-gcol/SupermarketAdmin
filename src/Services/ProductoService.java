@@ -9,7 +9,7 @@ import Models.Productos.ProductoPerecedero;
 
 import java.util.ArrayList;
 
-public class ProductoService {
+public class ProductoService implements IProductoService{
     /*README-------------------------------------------------------------
     * 1. Cuando se realice una venta, se le resta el stock seleccionado
     * por el cliente al stock del producto en el arrayList.
