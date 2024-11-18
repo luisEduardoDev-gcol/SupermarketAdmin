@@ -1,6 +1,6 @@
 package Controllers;
 
-import Exceptions.IdInvalidoException;
+import Exceptions.EntidadNoEncontradaException;
 import Exceptions.TipoEmpleadoInvalidoException;
 import Models.Empleados.Empleado;
 import Services.EmpleadoService;
@@ -19,7 +19,7 @@ public class EmpleadoController {
     }
 
     //Metodo para eliminar empleado por su id empleado
-    public void eliminarEmpleado(int idEmpleado) throws IdInvalidoException {
+    public void eliminarEmpleado(int idEmpleado) throws EntidadNoEncontradaException {
         this.empleadoService.eliminarEmpleado(idEmpleado);
     }
 

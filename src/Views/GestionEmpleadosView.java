@@ -8,7 +8,7 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
-import Exceptions.IdInvalidoException;
+import Exceptions.EntidadNoEncontradaException;
 import Exceptions.TipoEmpleadoInvalidoException;
 import Models.Empleados.Cajero;
 import Models.Empleados.Empleado;
@@ -425,7 +425,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        }  catch (IdInvalidoException e) {
+        }  catch (EntidadNoEncontradaException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
