@@ -17,7 +17,7 @@ import Models.Productos.Producto;
  *
  * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
-public class ProveedorService {
+public class ProveedorService implements IProveedorService {
 
     private ProveedorDAO proveedorDAO;
 

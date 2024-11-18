@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  *
  * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
-public class ClienteService {
+public class ClienteService implements IClienteService {
 
     private ClienteDAO clienteDAO;
 
